@@ -1,0 +1,1490 @@
+{
+  "name": "ServiceDelivery",
+  "cardinality": "pflicht",
+  "beschreibung": "Response from Producer to Consumer to deliver payload data. Either answers a direct ServiceRequest, or asynchronously satisfies a subscription. May be sent directly in one step, or fetched in response to a DataSupply Request.",
+  "children": [
+    {
+      "name": "ResponseTimestamp",
+      "cardinality": "pflicht",
+      "beschreibung": "",
+      "children": []
+    },
+    {
+      "name": "ProducerRef",
+      "cardinality": "optional",
+      "beschreibung": "Unique identifier of Producer - Participant reference.",
+      "children": []
+    },
+    {
+      "name": "Address",
+      "cardinality": "optional",
+      "beschreibung": "Endpoint Address to which acknowledgements to confirm delivery are to be sent.",
+      "children": []
+    },
+    {
+      "name": "ResponseMessageIdentifier",
+      "cardinality": "optional",
+      "beschreibung": "An arbitrary unique reference associated with the response which may be used to reference it.",
+      "children": []
+    },
+    {
+      "name": "RequestMessageRef",
+      "cardinality": "optional",
+      "beschreibung": "Reference to an arbitrary unique identifier associated with the request which gave rise to this response.",
+      "children": []
+    },
+    {
+      "name": "DelegatorAddress",
+      "cardinality": "optional",
+      "beschreibung": "Address of original Consumer, i.e. requesting system to which delegating response is to be returned. (since SIRI 2.0)",
+      "children": []
+    },
+    {
+      "name": "DelegatorRef",
+      "cardinality": "optional",
+      "beschreibung": "Identifier of delegating system that originated message. (since SIRI 2.0)",
+      "children": []
+    },
+    {
+      "name": "Status",
+      "cardinality": "optional",
+      "beschreibung": "Whether the complerte request could be processed successfully or not. Default is 'true'. If any of the individual requests within the delivery failed, should be set to ' false'.",
+      "children": []
+    },
+    {
+      "name": "ErrorCondition",
+      "cardinality": "optional",
+      "beschreibung": "Description of any error or warning conditions that appluy to the overall request. More Specific error conditions should be included on each request that fails.",
+      "children": []
+    },
+    {
+      "name": "MoreData",
+      "cardinality": "optional",
+      "beschreibung": "Whether there is a further delivery message with more current updates that follows this one. Default is 'false'.",
+      "children": []
+    },
+    {
+      "name": "EstimatedTimetableDelivery",
+      "cardinality": "choice",
+      "beschreibung": "Delivery for Estimated Timetable Service.",
+      "children": [
+        {
+          "name": "ResponseTimestamp",
+          "cardinality": "pflicht",
+          "beschreibung": " ",
+          "children": []
+        },
+        {
+          "name": "RequestMessageRef",
+          "cardinality": "choice",
+          "beschreibung": "Arbitrary unique reference to the request which gave rise to this message. (Teil der Choice: ContextualisedResponseEndpointGroup vs. SubscriptionIdentifierResourcePropertyGroup.)",
+          "children": []
+        },
+        {
+          "name": "SubscriberRef",
+          "cardinality": "choice",
+          "beschreibung": "Unique identifier of Subscriber - reference to a Participant. (Teil der Choice: SubscriptionIdentifierResourcePropertyGroup)",
+          "children": []
+        },
+        {
+          "name": "SubscriptionFilterRef",
+          "cardinality": "choice",
+          "beschreibung": "Unique identifier of Subscription filter to which this subscription is assigned. If there is only a single filter, then can be omitted.",
+          "children": []
+        },
+        {
+          "name": "SubscriptionRef",
+          "cardinality": "bedingt",
+          "beschreibung": "Reference to a service subscription: unique within Service and Subscriber. (Pflicht, aber nur wenn die Choice Option SubscriptionIdentifierResourcePropertyGroup gewählt wird)",
+          "children": []
+        },
+        {
+          "name": "DelegatorAddress",
+          "cardinality": "optional",
+          "beschreibung": "Address of original Consumer, i.e. requesting system to which delegating response is to be returned. (since SIRI 2.0)",
+          "children": []
+        },
+        {
+          "name": "DelegatorRef",
+          "cardinality": "optional",
+          "beschreibung": "Identifier of delegating system that originated message. (since SIRI 2.0)",
+          "children": []
+        },
+        {
+          "name": "Status",
+          "cardinality": "optional",
+          "beschreibung": "Whether the request was processed successfully or not. Default is 'true'.",
+          "children": []
+        },
+        {
+          "name": "ErrorCondition",
+          "cardinality": "optional",
+          "beschreibung": "Description of any error or warning condition.",
+          "children": []
+        },
+        {
+          "name": "DefaultLanguage",
+          "cardinality": "optional",
+          "beschreibung": "Default language of text",
+          "children": []
+        },
+        {
+          "name": "EstimatedJourneyVersionFrame",
+          "cardinality": "pflicht",
+          "beschreibung": "Estimated Journeys of a common TIMETABLE VERSION FRAME, grouped by timetable version.",
+          "children": [
+            {
+              "name": "RecordedAtTime",
+              "cardinality": "pflicht",
+              "beschreibung": "Time at which data was recorded.",
+              "children": []
+            },
+            {
+              "name": "VersionRef",
+              "cardinality": "optional",
+              "beschreibung": "Version Identifier.",
+              "children": []
+            },
+            {
+              "name": "EstimatedVehicleJourney",
+              "cardinality": "pflicht",
+              "beschreibung": "A VEHICLE JOURNEY taking place on a particular date that will be managed by an AVMs.",
+              "children": [
+                {
+                  "name": "RecordedAtTime",
+                  "cardinality": "optional",
+                  "beschreibung": "Time at which data of individual journey was recorded if different from that of frame. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "LineRef",
+                  "cardinality": "pflicht",
+                  "beschreibung": "Reference to a LINE",
+                  "children": []
+                },
+                {
+                  "name": "DirectionRef",
+                  "cardinality": "pflicht",
+                  "beschreibung": "Reference to a LINE DIRECTION DIRECTION, typically outward or return.",
+                  "children": []
+                },
+                {
+                  "name": "FramedVehicleJourneyRef",
+                  "cardinality": "choice",
+                  "beschreibung": "Identifer of a VEHICLE JOURNEY within data Horizon of a service.",
+                  "children": [
+                    {
+                      "name": "DataFrameRef",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Identifier of data frame within participant service. Used to ensure that the Reference to a DATED VEHICLE JOURNEY is unique with the data horizon of the service. Often the OPERATING DAY is used for this purpose.",
+                      "children": []
+                    },
+                    {
+                      "name": "DatedVehicleJourneyRef",
+                      "cardinality": "pflicht",
+                      "beschreibung": "A reference to the dated VEHICLE JOURNEY that the VEHICLE is making.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "DatedVehicleJourneyIndirectRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Additionally, identify the VEHICLE JOURNEY by origin and destination and the scheduled times at these stops.",
+                  "children": []
+                },
+                {
+                  "name": "ExtraJourney",
+                  "cardinality": "choice",
+                  "beschreibung": "Whether this VEHICLE JOURNEY is an addition to the planning data already sent. Default is 'false': i.e. not an additional journey.",
+                  "children": []
+                },
+                {
+                  "name": "Cancellation",
+                  "cardinality": "choice",
+                  "beschreibung": "Whether this VEHICLE JOURNEY is a deletion of a previous scheduled journey. Default is 'false': this is not a VEHICLE JOURNEY that has been cancelled. An Extra Journey may be deleted.",
+                  "children": []
+                },
+                {
+                  "name": "JourneyPatternRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Identifier of JOURNEY PATTERN that journey follows.",
+                  "children": []
+                },
+                {
+                  "name": "JourneyPatternName",
+                  "cardinality": "optional",
+                  "beschreibung": "Name of Joruney Pattern",
+                  "children": []
+                },
+                {
+                  "name": "VehicleMode",
+                  "cardinality": "optional",
+                  "beschreibung": "A means of transportation such as bus, rail, etc.",
+                  "children": []
+                },
+                {
+                  "name": "RouteRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Identifier of ROUTE that journey follows.",
+                  "children": []
+                },
+                {
+                  "name": "PublishedLineName",
+                  "cardinality": "optional",
+                  "beschreibung": "Name or Number by which the LINE is known to the public. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "GroupOfLinesRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Reference to a GROUP OF LINEs to which journey belongs. SIRI 2.0",
+                  "children": []
+                },
+                {
+                  "name": "DirectionName",
+                  "cardinality": "optional",
+                  "beschreibung": "Description of the DIRECTION. May correspond to a DESTINATION DISPLAY. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "ExternalLineRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Alternative identifier of LINE that an external system may associate with journey.",
+                  "children": []
+                },
+                {
+                  "name": "BrandingRef",
+                  "cardinality": "choice",
+                  "beschreibung": "Reference to a BRANDING. (since SIRI 2.1), (choice vs. Branding)",
+                  "children": []
+                },
+                {
+                  "name": "Branding",
+                  "cardinality": "choice",
+                  "beschreibung": "An arbitrary marketing classification. (since SIRI 2.1), (choice vs. BrandingRef)",
+                  "children": []
+                },
+                {
+                  "name": "OriginRef",
+                  "cardinality": "optional",
+                  "beschreibung": " ",
+                  "children": []
+                },
+                {
+                  "name": "OriginName",
+                  "cardinality": "optional",
+                  "beschreibung": "Name of the origin of the journey. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "OriginShortName",
+                  "cardinality": "optional",
+                  "beschreibung": "Short name of the origin of the journey; used to help identify the VEHICLE JOURNEY on arrival boards. If absent, same as Origin Name.",
+                  "children": []
+                },
+                {
+                  "name": "DestinationDisplayAtOrigin",
+                  "cardinality": "optional",
+                  "beschreibung": "DIRECTION name shown for journey at the origin. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "Via",
+                  "cardinality": "optional",
+                  "beschreibung": "Names of VIA points, used to help identify the LINE, for example, Luton to Luton via Sutton. Currently 3 in VDV. Should only be included if the detail level was requested.",
+                  "children": []
+                },
+                {
+                  "name": "DestinationRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Reference to a DESTINATION.",
+                  "children": []
+                },
+                {
+                  "name": "DestinationName",
+                  "cardinality": "optional",
+                  "beschreibung": "Description of the destination stop (vehicle signage), Can be overwritten for a journey, and then also section by section by the entry in an individual CALl. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "DestinationShortName",
+                  "cardinality": "optional",
+                  "beschreibung": "Short name of the DESTINATION.of the journey; used to help identify the VEHICLE JOURNEY on arrival boards. If absent, same as DestinationName. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "OriginDisplayAtDestination",
+                  "cardinality": "optional",
+                  "beschreibung": "Origin name shown for journey at the destination (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "OperatorRef",
+                  "cardinality": "optional",
+                  "beschreibung": "OPERATOR of a VEHICLE JOURNEY. Note that the operator may change over the course of a journey. This shoudl show teh operator for the curent point in the journey. Use Journey Parts tp record all the operators in the whole journeyh.",
+                  "children": []
+                },
+                {
+                  "name": "ProductCategoryRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Product Classification of VEHICLE JOURNEY- subdivides a transport mode. e.g. express, loacl",
+                  "children": []
+                },
+                {
+                  "name": "ServiceFeatureRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Classification of service into arbitrary Service categories, e.g. school bus. Recommended SIRI values based on TPEG are given in SIRI documentation and enumerated in the siri_facilities package. Corresponds to NeTEX TYPE OF SERVICe.",
+                  "children": []
+                },
+                {
+                  "name": "VehicleFeatureRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Features of VEHICLE providing journey. Recommended SIRI values based on TPEG are given in SIRI documentation and enumerated in the siri_facilities package.",
+                  "children": []
+                },
+                {
+                  "name": "VehicleJourneyName",
+                  "cardinality": "optional",
+                  "beschreibung": "For train services with named journeys. Train name, e.g. West Coast Express. If omitted: No train name. Inherited property. (Unbounded since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "JourneyNote",
+                  "cardinality": "optional",
+                  "beschreibung": "Additional descriptive text associated with journey. Inherited property.",
+                  "children": []
+                },
+                {
+                  "name": "PublicContact",
+                  "cardinality": "optional",
+                  "beschreibung": "Contact details for use by members of public. (since SIRI 2.0)",
+                  "children": [
+                    {
+                      "name": "PhoneNumber",
+                      "cardinality": "optional",
+                      "beschreibung": "Phone number (since SIRI 2.0)",
+                      "children": []
+                    },
+                    {
+                      "name": "Url",
+                      "cardinality": "optional",
+                      "beschreibung": "Url for contact (since SIRI 2.0)",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "OperationsContact",
+                  "cardinality": "optional",
+                  "beschreibung": "Contact details for use by operational staff. (since SIRI 2.0)",
+                  "children": [
+                    {
+                      "name": "PhoneNumber",
+                      "cardinality": "optional",
+                      "beschreibung": "Phone number (since SIRI 2.0)",
+                      "children": []
+                    },
+                    {
+                      "name": "Url",
+                      "cardinality": "optional",
+                      "beschreibung": "Url for contact (since SIRI 2.0)",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "HeadwayService",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether this is a Headway Service, that is shown as operating at a prescribed interval rather than to a fixed timetable. Default is 'false",
+                  "children": []
+                },
+                {
+                  "name": "OriginAimedDepartureTime",
+                  "cardinality": "optional",
+                  "beschreibung": "Timetabled departure time from Origin.",
+                  "children": []
+                },
+                {
+                  "name": "DestinationAimedArrivalTime",
+                  "cardinality": "optional",
+                  "beschreibung": "Timetabled arrival time at Destination.",
+                  "children": []
+                },
+                {
+                  "name": "FirstOrLastJourney",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether journey is first or last journey of day. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "FormationCondition",
+                  "cardinality": "optional",
+                  "beschreibung": "Information about a change of the formation (e.g. TRAIN composition) or changes of vehicles within the formation. (since SIRI 2.1)",
+                  "children": []
+                },
+                {
+                  "name": "FacilityConditionElement",
+                  "cardinality": "optional",
+                  "beschreibung": "Information about a change of Equipment availability at stop or on vehicle that may affect access or use.",
+                  "children": []
+                },
+                {
+                  "name": "FacilityChangeElement",
+                  "cardinality": "optional",
+                  "beschreibung": "A change to the availaibility of EQUIPMENT. Basic structure defined in the first 1.0 SIRI XSd.",
+                  "children": []
+                },
+                {
+                  "name": "SituationRef",
+                  "cardinality": "optional",
+                  "beschreibung": " ",
+                  "children": []
+                },
+                {
+                  "name": "ControlActionRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Reference to a ControlAction having possible consequences on the EstimatedVehicleJourney. Note that if the ControlAction is the master ControlAction of a GroupOfControlActions it is assumed that the refence is valid for all the ControlActions of the group.",
+                  "children": []
+                },
+                {
+                  "name": "Monitored",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether there is real-time information available for journey. Default is 'true'. It is recommended to specify a MonitoringError if Monitored is set to 'false'.",
+                  "children": []
+                },
+                {
+                  "name": "MonitoringError",
+                  "cardinality": "optional",
+                  "beschreibung": "If Monitored is 'false', a (list of) reason(s) for non-availability of real-time data. Examples are \"GPS\", \"GPRS\", \"Radio\" etc. MonitoringError must not be used if Monitored is omitted or set to 'true'.",
+                  "children": []
+                },
+                {
+                  "name": "InCongestion",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether the VEHICLE iis in traffic congestion. If not, present, not known.",
+                  "children": []
+                },
+                {
+                  "name": "InPanic",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether the panic alarm on the VEHICLE is activated. This may lead to indeterminate predictions. If absent, default is 'false'",
+                  "children": []
+                },
+                {
+                  "name": "PredictionInaccurate",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether the prediction for a specific stop or the whole journey is considered to be of a useful accuracy or not. Default is 'false', i.e. prediction is considered to be accurate. If prediction is degraded, e.g. because of a situation, PredictionInaccurate is used to indicate a lowered quality of data. Inherited property. PredictionInaccurate can be used in combination with InCongestion, but is more general.",
+                  "children": []
+                },
+                {
+                  "name": "PredictionInaccurateReason",
+                  "cardinality": "optional",
+                  "beschreibung": "Can be used to inform the passenger about the reason for a change of the prediction (in)accuracy in case PredictionInaccurate is set to 'true'. (since SIRI 2.1)",
+                  "children": []
+                },
+                {
+                  "name": "DataSource",
+                  "cardinality": "optional",
+                  "beschreibung": "System originating real-time data. Can be used to make judgements of relative quality and accuracy compared to other feeds.",
+                  "children": []
+                },
+                {
+                  "name": "ConfidenceLevel",
+                  "cardinality": "optional",
+                  "beschreibung": "Confidence QUALITY LEVEL of data. Default is 'reliable'",
+                  "children": []
+                },
+                {
+                  "name": "VehicleLocation",
+                  "cardinality": "optional",
+                  "beschreibung": "Current geospatial location of VEHICLE. Measured to front of vehicle.",
+                  "children": []
+                },
+                {
+                  "name": "LocationRecordedAtTime",
+                  "cardinality": "optional",
+                  "beschreibung": "Time at which location was recorded. If not present assume that the recorded at time on the containing delivery.",
+                  "children": []
+                },
+                {
+                  "name": "Bearing",
+                  "cardinality": "optional",
+                  "beschreibung": "Bearing in compass degrees in which VEHICLE is heading.",
+                  "children": []
+                },
+                {
+                  "name": "ProgressRate",
+                  "cardinality": "optional",
+                  "beschreibung": "Rate of progress of VEHICLE. Default is 'normal'.",
+                  "children": []
+                },
+                {
+                  "name": "Velocity",
+                  "cardinality": "optional",
+                  "beschreibung": "Velocity of VEHICLE. EIther actual speed or average speed may be used. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "EngineOn",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether the engine of the vehicle is on. Default is 'true' (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "Occupancy",
+                  "cardinality": "optional",
+                  "beschreibung": "An approximate figure of how occupied the journey is after departing from a given stop, e.g. 'manySeatsAvailable' or 'standingRoomOnly'. If omitted: Passenger load is unknown. Occupancies and capacities for individual VEHICLEs, e.g. parts of a COMPOUND TRAIN, can also be specified in more detail for the departure on CALL level.",
+                  "children": []
+                },
+                {
+                  "name": "Delay",
+                  "cardinality": "optional",
+                  "beschreibung": "Delay of VEHICLE against schedule, to a precision in seconds. Early times are shown as negative values.",
+                  "children": []
+                },
+                {
+                  "name": "ProgressStatus",
+                  "cardinality": "optional",
+                  "beschreibung": "An arbitrary textual status description of the running of this VEHICLE JOURNEY. (Unbounded 0:* since SIRI 2.0).",
+                  "children": []
+                },
+                {
+                  "name": "VehicleStatus",
+                  "cardinality": "optional",
+                  "beschreibung": "An classification of the progress state of running of this VEHICLE JOURNEY. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "TrainBlockPart",
+                  "cardinality": "optional",
+                  "beschreibung": "If a VEHICLE JOURNEY is a coupled journey, i.e. comprises several coupled BLOCKparts, there will be a separate delivery for each BLOCKp art and this element will indicate the vehicles that the journey part uses.",
+                  "children": [
+                    {
+                      "name": "NumberOfBlockParts",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Total number of BLOCK parts making up the train of which this is part.",
+                      "children": []
+                    },
+                    {
+                      "name": "TrainPartRef",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Reference to a train BLOCK part.",
+                      "children": []
+                    },
+                    {
+                      "name": "PositionOfTrainBlockPart",
+                      "cardinality": "optional",
+                      "beschreibung": "Description of position of train BLOCK part within Train to guide passengers where to find it. E.g. 'Front four coaches'.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "BlockRef",
+                  "cardinality": "optional",
+                  "beschreibung": "BLOCK that VEHICLE is running.",
+                  "children": []
+                },
+                {
+                  "name": "CourseOfJourneyRef",
+                  "cardinality": "optional",
+                  "beschreibung": "COURSE OF JOURNEY ('Run') that VEHICLE is running.",
+                  "children": []
+                },
+                {
+                  "name": "VehicleJourneyRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Reference to a VEHICLE JOURNEY.",
+                  "children": []
+                },
+                {
+                  "name": "VehicleRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Reference to a VEHICLE.",
+                  "children": []
+                },
+                {
+                  "name": "AdditionalVehicleJourneyRef",
+                  "cardinality": "optional",
+                  "beschreibung": "Refercence to other VEHICLE Journeys ((since SIRI 2.0))",
+                  "children": []
+                },
+                {
+                  "name": "DriverRef",
+                  "cardinality": "optional",
+                  "beschreibung": "A reference to the DRIVER or Crew currently logged in to operate a monitored VEHICLE. May be omitted if real-time data is not available - i.e. it is timetabled data. (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "DriverName",
+                  "cardinality": "optional",
+                  "beschreibung": "The name oo the Driver or Crew   (since SIRI 2.0)",
+                  "children": []
+                },
+                {
+                  "name": "TrainNumbers",
+                  "cardinality": "optional",
+                  "beschreibung": "TRAIN NUMBERs for journey. (since SIRI 2.0)",
+                  "children": [
+                    {
+                      "name": "TrainNumberRef",
+                      "cardinality": "pflicht",
+                      "beschreibung": "TRAIN NUMBER  assigned to VEHICLE JOURNEY.  +SIRI  2.0",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "JourneyParts",
+                  "cardinality": "optional",
+                  "beschreibung": "JOURNEY PARTs making up JOURNEY +SIRIv2.0 e.",
+                  "children": [
+                    {
+                      "name": "JourneyPartInfo",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Information about Parts of JOURNEY  (since SIRI 2.0)",
+                      "children": [
+                        {
+                          "name": "JourneyPartRef",
+                          "cardinality": "optional",
+                          "beschreibung": "Reference to a JOURNEY part. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "TrainNumberRef",
+                          "cardinality": "optional",
+                          "beschreibung": "Train Number for JOURNEY PART (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "OperatorRef",
+                          "cardinality": "optional",
+                          "beschreibung": "OPERATOR of JOURNEY PART. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "CompoundTrainRef",
+                          "cardinality": "optional",
+                          "beschreibung": "Reference to COMPOUND TRAIN that represents the train formation/composition as a whole (for this JOURNEY PART). (since SIRI 2.1) A journey does always have one or more JOURNEY PARTs for which the train formation/composition remains unchanged.",
+                          "children": []
+                        },
+                        {
+                          "name": "FromStopPointRef",
+                          "cardinality": "bedingt",
+                          "beschreibung": "Reference to the SCHEDULED STOP POINT at which the related JOURNEY PART begins.",
+                          "children": []
+                        },
+                        {
+                          "name": "ToStopPointRef",
+                          "cardinality": "bedingt",
+                          "beschreibung": "Reference to the SCHEDULED STOP POINT at which the related JOURNEY PART ends.",
+                          "children": []
+                        },
+                        {
+                          "name": "StartTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Time at which the related JOURNEY PART begins.",
+                          "children": []
+                        },
+                        {
+                          "name": "EndTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Time at which the related JOURNEY PART ends.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "TrainElements",
+                  "cardinality": "optional",
+                  "beschreibung": " ",
+                  "children": [
+                    {
+                      "name": "TrainElementRef",
+                      "cardinality": "choice",
+                      "beschreibung": "Reference to a TRAIN ELEMENT. (since SIRI 2.1)",
+                      "children": []
+                    },
+                    {
+                      "name": "TrainElement",
+                      "cardinality": "choice",
+                      "beschreibung": "An elementary component of a TRAIN, e.g. wagon or locomotive. (since SIRI 2.1)",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "Trains",
+                  "cardinality": "optional",
+                  "beschreibung": " ",
+                  "children": [
+                    {
+                      "name": "TrainRef",
+                      "cardinality": "choice",
+                      "beschreibung": " ",
+                      "children": []
+                    },
+                    {
+                      "name": "Train",
+                      "cardinality": "choice",
+                      "beschreibung": "A vehicle composed of TRAIN ELEMENTs assembled in a certain order (so called TRAIN COMPONENTs), i.e. wagons assembled together and propelled by a locomotive or one of the wagons. (since SIRI 2.1)",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "CompoundTrains",
+                  "cardinality": "optional",
+                  "beschreibung": " ",
+                  "children": [
+                    {
+                      "name": "CompoundTrainRef",
+                      "cardinality": "choice",
+                      "beschreibung": " ",
+                      "children": []
+                    },
+                    {
+                      "name": "CompoundTrain",
+                      "cardinality": "choice",
+                      "beschreibung": "Groups of carriages may be managed as sections by composing TRAINs into a COMPOUND TRAIN, for example if a TRAIN joins (or splits from) another TRAIN. TRAINs within a COMPOUND TRAIN may have different origins and destinations due to joining/splitting. A COMPOUND TRAIN may be stable for one or multiple JOURNEY PARTs and change at a certain STOP POINT due to planned joining/splitting, despatching alterations or a situation.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "name": "RecordedCalls",
+                  "cardinality": "optional",
+                  "beschreibung": "Complete sequence of stops already visited along the route path, in calling order. Only used if observed stop data is being recorded. (SIRI 2.0)",
+                  "children": [
+                    {
+                      "name": "RecordedCall",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Ordered sequence of SCHEDULED STOP POINTs called at by the VEHICLE JOURNEY. Only used if observed stop data is being recorded. (SIRI 2.0)",
+                      "children": [
+                        {
+                          "name": "StopPointRef",
+                          "cardinality": "pflicht",
+                          "beschreibung": "Reference to a SCHEDULED STOP POINT.",
+                          "children": []
+                        },
+                        {
+                          "name": "VisitNumber",
+                          "cardinality": "optional",
+                          "beschreibung": "Sequence of visit to SCHEDULED STOP POINT.within VEHICLE JOURNEY. Increases monotonically, but not necessarily sequentially.",
+                          "children": []
+                        },
+                        {
+                          "name": "Order",
+                          "cardinality": "optional",
+                          "beschreibung": "For implementations for which the overall Order is not used for VisitNumber, (i.e. if VisitNumberIsOrder is false) then can be used to associate the stop Order as well if useful.",
+                          "children": []
+                        },
+                        {
+                          "name": "StopPointName",
+                          "cardinality": "optional",
+                          "beschreibung": "Name of SCHEDULED STOP POINT. (Unbounded since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExtraCall",
+                          "cardinality": "choice",
+                          "beschreibung": "This CALL is an addition to the respective journey in the production timetable or to the previously sent prediction. If omitted: CALL is planned.",
+                          "children": []
+                        },
+                        {
+                          "name": "Cancellation",
+                          "cardinality": "choice",
+                          "beschreibung": "This CALL is a cancellation of a previously announced call.",
+                          "children": []
+                        },
+                        {
+                          "name": "PredictionInaccurate",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether the prediction for a specific stop or the whole journey is considered to be of a useful accuracy or not. Default is 'false', i.e. prediction is considered to be accurate. If prediction is degraded, e.g. because of a situation, PredictionInaccurate is used to indicate a lowered quality of data. Inherited property. PredictionInaccurate can be used in combination with InCongestion, but is more general.",
+                          "children": []
+                        },
+                        {
+                          "name": "PredictionInaccurateReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Can be used to inform the passenger about the reason for a change of the prediction (in)accuracy in case PredictionInaccurate is set to 'true'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "Occupancy",
+                          "cardinality": "optional",
+                          "beschreibung": "An approximate figure of how occupied the journey is after departing from a given stop, e.g. 'manySeatsAvailable' or 'standingRoomOnly'. If omitted: Passenger load is unknown. Occupancies and capacities for individual VEHICLEs, e.g. parts of a COMPOUND TRAIN, can also be specified in more detail for the departure on CALL level.",
+                          "children": []
+                        },
+                        {
+                          "name": "TimingPoint",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether the stop is a TIMING POINT. Times for stops that are not timing points are sometimes interpolated crudely from the timing points, and may represent a lower level of accuracy. Default is 'true'.",
+                          "children": []
+                        },
+                        {
+                          "name": "BoardingStretch",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether this is a Hail and Ride Stop. Default is 'false'.",
+                          "children": []
+                        },
+                        {
+                          "name": "RequestStop",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether Vehicle stops only if requested explicitly by passenger. Default is 'false'.",
+                          "children": []
+                        },
+                        {
+                          "name": "OriginDisplay",
+                          "cardinality": "optional",
+                          "beschreibung": "Origin to show for the VEHICLE at the specific stop (vehicle signage), if different to the Origin Name for the full journey. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "DestinationDisplay",
+                          "cardinality": "optional",
+                          "beschreibung": "Destination to show for the VEHICLE at the specific stop (vehicle signage), if different to the Destination Name for the full journey.",
+                          "children": []
+                        },
+                        {
+                          "name": "CallNote",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation that applies to this CALL.",
+                          "children": []
+                        },
+                        {
+                          "name": "FormationCondition",
+                          "cardinality": "optional",
+                          "beschreibung": "Information about a change of the formation (e.g. TRAIN composition) or changes of vehicles within the formation. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "FacilityConditionElement",
+                          "cardinality": "optional",
+                          "beschreibung": "Information about a change of Equipment availability at stop or on vehicle that may affect access or use.",
+                          "children": []
+                        },
+                        {
+                          "name": "FacilityChangeElement",
+                          "cardinality": "optional",
+                          "beschreibung": "A change to the availaibility of EQUIPMENT. Basic structure defined in the first 1.0 SIRI XSd.",
+                          "children": []
+                        },
+                        {
+                          "name": "SituationRef",
+                          "cardinality": "optional",
+                          "beschreibung": " ",
+                          "children": []
+                        },
+                        {
+                          "name": "ControlActionRef",
+                          "cardinality": "optional",
+                          "beschreibung": "Reference to a ControlAction having possible consequences on the EstimatedVehicleJourney. Note that if the ControlAction is the master ControlAction of a GroupOfControlActions it is assumed that the refence is valid for all the ControlActions of the group.",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedArrivalTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Target arrival time of VEHICLE at stop according to latest working timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedArrivalTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Estimated time of arriival of VEHICLE at stop .",
+                          "children": []
+                        },
+                        {
+                          "name": "ActualArrivalTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Observed time of arrival of VEHICLE at stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalStatus",
+                          "cardinality": "optional",
+                          "beschreibung": "Classification of the timeliness of the visit according to a fixed list of values. If not specified, same as DepartureStatus",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalCancellationReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation to be used in cases where ArrivalStatus is set to 'cancelled'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalProximityText",
+                          "cardinality": "optional",
+                          "beschreibung": "Arbitrary text string to show to indicate the status of the departure of the VEHICLE for example, Enroute, 5 Km, Approaching. May depend on the policy of the OPERATOR, for example show Approaching if less than 200metres away from stop. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalPlatformName",
+                          "cardinality": "optional",
+                          "beschreibung": "Bay or platform (QUAY) name to show passenger i.e. expected platform for vehicle to arrive at. Inheritable property. Can be omitted if the same as the DeparturePlatformName If there no arrival platform name separate from the departure platform name, the precedence is: (i) any arrival platform on any related dated timetable element, (ii) any departure platform name on this estimated element; (iii) any departure platform name on any related dated timetable CALL.",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalBoardingActivity",
+                          "cardinality": "optional",
+                          "beschreibung": "Type of alighting allowed at stop. Default is 'Alighting",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalStopAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of planned, expected and/or recorded arrival at STOP POINT to a phsyical QUAY (platform). If not given, assume same as for departure. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalFormationAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of a TRAIN formation to a physical QUAY (platform or sectors thereof). If not given, assume same as for departure. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalOrientationRelativeToQuay",
+                          "cardinality": "optional",
+                          "beschreibung": "Indication of the direction of travel of the vehicle (e.g. TRAIN formation) with respect to the platform, or more precisely the QUAY. Unbounded to allow multiple languages. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalOperatorRefs",
+                          "cardinality": "optional",
+                          "beschreibung": "OPERATORs of of service up until arrival. May change for departure. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedDepartureTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Target departure time of VEHICLE from stop according to latest working timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedDepartureTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Estimated time of departure of VEHICLE from stop, most likely taking into account all control actions such as waiting.",
+                          "children": []
+                        },
+                        {
+                          "name": "DeparturePlatformName",
+                          "cardinality": "optional",
+                          "beschreibung": "Departure QUAY (bay or platform) name. Default taken from planned timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "ActualDepartureTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Observed time of departure of VEHICLE from stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureStatus",
+                          "cardinality": "optional",
+                          "beschreibung": "Classification of the timeliness of the departure part of the CALL, according to a fixed list of values. This may reflect a presentation policy, for example CALLs less than one minute behind target time are still classified as on-time. Applications may use this to guide their own presentation of times.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureCancellationReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation to be used in cases where DepartureStatus is set to 'cancelled'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureProximityText",
+                          "cardinality": "optional",
+                          "beschreibung": "Arbitrary text string to show to indicate the status of the departure of the vehicle, for example, \"Boarding\", \"GatesClosed\". (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureBoardingActivity",
+                          "cardinality": "optional",
+                          "beschreibung": "Nature of boarding allowed at stop. Default is 'Boarding'.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureStopAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Type for assignment of a SCHEDULED STOP POINT to a physical location, in particular to a QUAY or BOARDING POSITION. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureFormationAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of a TRAIN formation to a physical QUAY (platform or sectors thereof). (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureOrientationRelativeToQuay",
+                          "cardinality": "optional",
+                          "beschreibung": "Indication of the direction of travel of the vehicle (e.g. TRAIN formation) with respect to the platform, or more precisely the QUAY. Unbounded to allow multiple languages. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "RecordedDepartureOccupancy",
+                          "cardinality": "optional",
+                          "beschreibung": "Actually recorded/counted occupancies of a VEHICLE and reserved seats after departing from a given stop. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "RecordedDepartureCapacities",
+                          "cardinality": "optional",
+                          "beschreibung": "Actually recorded/counted capacities of a VEHICLE after departing from a given stop. Alternative way to communicate occupancy measurements. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureOperatorRefs",
+                          "cardinality": "optional",
+                          "beschreibung": "OPERATORs of service for departure and onwards. May change from that for arrival. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedHeadwayInterval",
+                          "cardinality": "optional",
+                          "beschreibung": "For frequency based services, target interval between vehicles at stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedHeadwayInterval",
+                          "cardinality": "optional",
+                          "beschreibung": "For frequency based services, expected interval between vehicles at stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "ActualHeadwayInterval",
+                          "cardinality": "optional",
+                          "beschreibung": "For frequency based services, observed interval between vehicles at stop.",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "IsCompleteStopSequence",
+                  "cardinality": "optional",
+                  "beschreibung": "Whether the above call sequence is complete, i.e. represents every CALL of the SERVICE PATTERN and so can be used to replace a previous call sequence. Default is 'false'.",
+                  "children": []
+                },
+                {
+                  "name": "EstimatedCalls",
+                  "cardinality": "optional",
+                  "beschreibung": "Complete sequence of stops along the route path, in calling order. Normally this is only the onwards stops from the vehicle's current position.",
+                  "children": [
+                    {
+                      "name": "EstimatedCall",
+                      "cardinality": "pflicht",
+                      "beschreibung": "Ordered sequence of SCHEDULED STOP POINTs called at by the VEHICLE JOURNEY. If IsCompleteStopSequence is false, may be just those stops that are altered.",
+                      "children": [
+                        {
+                          "name": "StopPointRef",
+                          "cardinality": "pflicht",
+                          "beschreibung": "Reference to a SCHEDULED STOP POINT.",
+                          "children": []
+                        },
+                        {
+                          "name": "VisitNumber",
+                          "cardinality": "optional",
+                          "beschreibung": "Sequence of visit to SCHEDULED STOP POINT.within VEHICLE JOURNEY. Increases monotonically, but not necessarily sequentially.",
+                          "children": []
+                        },
+                        {
+                          "name": "Order",
+                          "cardinality": "optional",
+                          "beschreibung": "For implementations for which the overall Order is not used for VisitNumber, (i.e. if VisitNumberIsOrder is false) then can be used to associate the stop Order as well if useful.",
+                          "children": []
+                        },
+                        {
+                          "name": "StopPointName",
+                          "cardinality": "optional",
+                          "beschreibung": "Name of SCHEDULED STOP POINT. (Unbounded since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExtraCall",
+                          "cardinality": "choice",
+                          "beschreibung": "This CALL is an addition to the respective journey in the production timetable or to the previously sent prediction. If omitted: CALL is planned.",
+                          "children": []
+                        },
+                        {
+                          "name": "Cancellation",
+                          "cardinality": "choice",
+                          "beschreibung": "This CALL is a cancellation of a previously announced call.",
+                          "children": []
+                        },
+                        {
+                          "name": "PredictionInaccurate",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether the prediction for a specific stop or the whole journey is considered to be of a useful accuracy or not. Default is 'false', i.e. prediction is considered to be accurate. If prediction is degraded, e.g. because of a situation, PredictionInaccurate is used to indicate a lowered quality of data. Inherited property. PredictionInaccurate can be used in combination with InCongestion, but is more general.",
+                          "children": []
+                        },
+                        {
+                          "name": "PredictionInaccurateReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Can be used to inform the passenger about the reason for a change of the prediction (in)accuracy in case PredictionInaccurate is set to 'true'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "Occupancy",
+                          "cardinality": "optional",
+                          "beschreibung": "An approximate figure of how occupied the journey is after departing from a given stop, e.g. 'manySeatsAvailable' or 'standingRoomOnly'. If omitted: Passenger load is unknown. Occupancies and capacities for individual VEHICLEs, e.g. parts of a COMPOUND TRAIN, can also be specified in more detail for the departure on CALL level.",
+                          "children": []
+                        },
+                        {
+                          "name": "TimingPoint",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether the stop is a TIMING POINT. Times for stops that are not timing points are sometimes interpolated crudely from the timing points, and may represent a lower level of accuracy. Default is 'true'.",
+                          "children": []
+                        },
+                        {
+                          "name": "BoardingStretch",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether this is a Hail and Ride Stop. Default is 'false'.",
+                          "children": []
+                        },
+                        {
+                          "name": "RequestStop",
+                          "cardinality": "optional",
+                          "beschreibung": "Whether Vehicle stops only if requested explicitly by passenger. Default is 'false'.",
+                          "children": []
+                        },
+                        {
+                          "name": "OriginDisplay",
+                          "cardinality": "optional",
+                          "beschreibung": "Origin to show for the VEHICLE at the specific stop (vehicle signage), if different to the Origin Name for the full journey. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "DestinationDisplay",
+                          "cardinality": "optional",
+                          "beschreibung": "Destination to show for the VEHICLE at the specific stop (vehicle signage), if different to the Destination Name for the full journey.",
+                          "children": []
+                        },
+                        {
+                          "name": "CallNote",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation that applies to this CALL.",
+                          "children": []
+                        },
+                        {
+                          "name": "FormationCondition",
+                          "cardinality": "optional",
+                          "beschreibung": "Information about a change of the formation (e.g. TRAIN composition) or changes of vehicles within the formation. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "FacilityConditionElement",
+                          "cardinality": "optional",
+                          "beschreibung": "Information about a change of Equipment availability at stop or on vehicle that may affect access or use.",
+                          "children": []
+                        },
+                        {
+                          "name": "FacilityChangeElement",
+                          "cardinality": "optional",
+                          "beschreibung": "A change to the availaibility of EQUIPMENT. Basic structure defined in the first 1.0 SIRI XSd.",
+                          "children": []
+                        },
+                        {
+                          "name": "SituationRef",
+                          "cardinality": "optional",
+                          "beschreibung": " ",
+                          "children": []
+                        },
+                        {
+                          "name": "ControlActionRef",
+                          "cardinality": "optional",
+                          "beschreibung": "Reference to a ControlAction having possible consequences on the EstimatedVehicleJourney. Note that if the ControlAction is the master ControlAction of a GroupOfControlActions it is assumed that the refence is valid for all the ControlActions of the group.",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedArrivalTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Target arrival time of VEHICLE at stop according to latest working timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedArrivalTime",
+                          "cardinality": "choice",
+                          "beschreibung": "Estimated time of arriival of VEHICLE at stop .",
+                          "children": []
+                        },
+                        {
+                          "name": "LatestExpectedArrivalTime",
+                          "cardinality": "choice",
+                          "beschreibung": "Latest time at which a VEHICLE will arrive at stop. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedArrivalPredictionQuality",
+                          "cardinality": "choice",
+                          "beschreibung": "Prediction quality, either as approximate level, or more quantitative percentile range of predictions that will fall within a given range of times. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalPredictionUnknown",
+                          "cardinality": "bedingt",
+                          "beschreibung": "If the producer is (temporarily) not able to deliver real-time predictions (e.g. because of a connection loss), he has various options (and combinations of them) to inform the consumer: (i) set Monitored to 'false' (ii) transmit ExpectedArrivalTime together with \"PredictionInaccurate=true\" (iii) drop/omit ExpectedArrivalTime (iv) set ArrivalStatus to 'noReport' However, this might introduce ambiguity: e.g. option (iii) might be interpreted as \"on time\" by one consumer, but also as \"indefinite delay\" by another consumer. To avoid this, the producer should transmit xxxPredictionUnknown instead of any expected times. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalStatus",
+                          "cardinality": "optional",
+                          "beschreibung": "Classification of the timeliness of the visit according to a fixed list of values. If not specified, same as DepartureStatus.",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalCancellationReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation to be used in cases where ArrivalStatus is set to 'cancelled'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalProximityText",
+                          "cardinality": "optional",
+                          "beschreibung": "Arbitrary text string to show to indicate the status of the departure of the VEHICLE for example, \"Enroute\", \"5 Km\", \"Approaching\". May depend on the policy of the OPERATOR, for example show \"Approaching\" if less than 200metres away from stop. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalPlatformName",
+                          "cardinality": "optional",
+                          "beschreibung": "Bay or platform (QUAY) name to show passenger i.e. expected platform for vehicle to arrive at. Inheritable property. Can be omitted if the same as the DeparturePlatformName If there no arrival platform name separate from the departure platform name, the precedence is: (i) any arrival platform on any related dated timetable element, (ii) any departure platform name on this estimated element; (iii) any departure platform name on any related dated timetable CALL.",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalBoardingActivity",
+                          "cardinality": "optional",
+                          "beschreibung": "Type of alighting allowed at stop. Default is 'Alighting'.",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalStopAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of planned, expected and/or recorded arrival at STOP POINT to a phsyical QUAY (platform). If not given, assume same as for departure. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalFormationAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of a TRAIN formation to a physical QUAY (platform or sectors thereof). If not given, assume same as for departure. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalOrientationRelativeToQuay",
+                          "cardinality": "optional",
+                          "beschreibung": "Indication of the direction of travel of the vehicle (e.g. TRAIN formation) with respect to the platform, or more precisely the QUAY. Unbounded to allow multiple languages. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ArrivalOperatorRefs",
+                          "cardinality": "optional",
+                          "beschreibung": "OPERATORs of of service up until arrival. May change for departure. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedDepartureTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Target departure time of VEHICLE from stop according to latest working timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedDepartureTime",
+                          "cardinality": "choice",
+                          "beschreibung": "Estimated time of departure of VEHICLE from stop, most likely taking into account all control actions such as waiting.",
+                          "children": []
+                        },
+                        {
+                          "name": "ProvisionalExpectedDepartureTime",
+                          "cardinality": "choice",
+                          "beschreibung": "Expected departure time of VEHICLE without waiting time due to operational actions. For people at stop this would normally be shown if different from Expected departure time. So if servcie decides not to wait may leave earler than expected departure time (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "EarliestExpectedDepartureTime",
+                          "cardinality": "choice",
+                          "beschreibung": "Earliest time at which VEHICLE may leave the stop. Used to secure connections. Used for passenger announcements. Passengers must be at boarding point by this time to be sure of catching VEHICLE. i.e. \"Vehicle will not leave before this time\" - may be revised from original aimed time. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedDeparturePredictionQuality",
+                          "cardinality": "choice",
+                          "beschreibung": "Prediction quality, either as approximate level, or more quantitative percentile range of predictions that will fall within a given range of times. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "DeparturePredictionUnknown",
+                          "cardinality": "bedingt",
+                          "beschreibung": "If the producer is (temporarily) not able to deliver real-time predictions (e.g. because of a connection loss), he has various options (and combinations of them) to inform the consumer: (i) set Monitored to 'false' (ii) transmit ExpectedDepartureTime together with \"PredictionInaccurate=true\" (iii) drop/omit ExpectedDepartureTime (iv) set DepartureStatus to 'noReport' However, this might introduce ambiguity: e.g. option (iii) might be interpreted as \"on time\" by one consumer, but also as \"indefinite delay\" by another consumer. To avoid this, the producer should transmit xxxPredictionUnknown instead of any expected times. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedLatestPassengerAccessTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Latest target time at which a PASSENGER should aim to arrive at the STOP PLACE containing the stop. This time may be earlier than the VEHICLE departure times and may include time for processes such as checkin, security, etc.(As specified by CHECK CONSTRAINT DELAYs in the underlying data). If absent assume to be the same as Earliest expected departure time. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedLatestPassengerAccessTime",
+                          "cardinality": "optional",
+                          "beschreibung": "Latest expected time at which a PASSENGER should aim to arrive at the STOP PLACE containing the stop. This time may be earlier than the VEHICLE departure times and may include time for processes such as checkin, security, etc.(As specified by CHECK CONSTRAINT DELAYs in the underlying data). If absent assume to be the same as Earliest expected departure time. (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "AimedHeadwayInterval",
+                          "cardinality": "optional",
+                          "beschreibung": "For frequency based services, target interval between vehicles at stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedHeadwayInterval",
+                          "cardinality": "optional",
+                          "beschreibung": "For frequency based services, expected interval between vehicles at stop.",
+                          "children": []
+                        },
+                        {
+                          "name": "DistanceFromStop",
+                          "cardinality": "optional",
+                          "beschreibung": "Distance of VEHICLE from stop of CALL as measured along ROUTE track. Only shown if detail level is 'calls' or higher. Positive value denotes distance before stop. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "NumberOfStopsAway",
+                          "cardinality": "optional",
+                          "beschreibung": "Count of stops along SERVICE PATTERN between current position of VEHICLE and stop of CALL as measured along ROUTE track. Only shown if detail level is 'calls' or higher. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureStatus",
+                          "cardinality": "optional",
+                          "beschreibung": "Classification of the timeliness of the departure part of the CALL, according to a fixed list of values. This may reflect a presentation policy, for example CALLs less than one minute behind target time are still classified as on-time. Applications may use this to guide their own presentation of times.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureCancellationReason",
+                          "cardinality": "optional",
+                          "beschreibung": "Text annotation to be used in cases where DepartureStatus is set to 'cancelled'. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureProximityText",
+                          "cardinality": "optional",
+                          "beschreibung": "Arbitrary text string to show to indicate the status of the departure of the vehicle, for example, \"Boarding\", \"GatesClosed\". (since SIRI 2.0)",
+                          "children": []
+                        },
+                        {
+                          "name": "DeparturePlatformName",
+                          "cardinality": "optional",
+                          "beschreibung": "Departure QUAY (bay or platform) name. Default taken from planned timetable.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureBoardingActivity",
+                          "cardinality": "optional",
+                          "beschreibung": "Nature of boarding allowed at stop. Default is 'Boarding'.",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureStopAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Type for assignment of a SCHEDULED STOP POINT to a physical location, in particular to a QUAY or BOARDING POSITION. (since SIRI 2.0).",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureFormationAssignment",
+                          "cardinality": "optional",
+                          "beschreibung": "Assignment of a TRAIN formation to a physical QUAY (platform or sectors thereof). (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureOrientationRelativeToQuay",
+                          "cardinality": "optional",
+                          "beschreibung": "Indication of the direction of travel of the vehicle (e.g. TRAIN formation) with respect to the platform, or more precisely the QUAY. Unbounded to allow multiple languages. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedDepartureOccupancy",
+                          "cardinality": "choice",
+                          "beschreibung": "Expected/Predicted real-time occupancies of a VEHICLE and reservations after departing from a given stop. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "ExpectedDepartureCapacities",
+                          "cardinality": "choice",
+                          "beschreibung": "Expected/Predicted real-time capacities (number of available seats) of a VEHICLE after departing from a given stop. Alternative way to communicate occupancy measurements. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "RecordedDepartureOccupancy",
+                          "cardinality": "choice",
+                          "beschreibung": "Actually recorded/counted occupancies of a VEHICLE and reserved seats after departing from a given stop. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "RecordedDepartureCapacities",
+                          "cardinality": "choice",
+                          "beschreibung": "Actually recorded/counted capacities of a VEHICLE after departing from a given stop. Alternative way to communicate occupancy measurements. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "DepartureOperatorRefs",
+                          "cardinality": "optional",
+                          "beschreibung": "OPERATORs of service for departure and onwards. May change from that for arrival. (since SIRI 2.0).",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "JourneyRelations",
+                  "cardinality": "optional",
+                  "beschreibung": "Relations of the journey with other journeys, e.g., in case a joining/splitting takes place or the journey substitutes for another one etc.",
+                  "children": [
+                    {
+                      "name": "JourneyRelation",
+                      "cardinality": "pflicht",
+                      "beschreibung": " ",
+                      "children": [
+                        {
+                          "name": "JourneyRelationType",
+                          "cardinality": "pflicht",
+                          "beschreibung": "Specifies the type of the relation, e.g., joining, splitting, replacement etc. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "CallInfo",
+                          "cardinality": "bedingt",
+                          "beschreibung": "Information about the stop at which the JOURNEY is related to another JOURNEY. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "JourneyParts",
+                          "cardinality": "bedingt",
+                          "beschreibung": "Information about the JOURNEY PARTs for which the JOURNEY has a JOURNEY RELATION. (since SIRI 2.1)",
+                          "children": []
+                        },
+                        {
+                          "name": "RelatedJourney",
+                          "cardinality": "pflicht",
+                          "beschreibung": "Refers to the JOURNEY to which the current JOURNEY is related. (since SIRI 2.1)",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "EstimatedServiceJourneyInterchange",
+              "cardinality": "optional",
+              "beschreibung": "Connection parameters for a monitored SERVICE JOURNEY INTERCHANGE between a feeder and distributor journey. SIRI 2.0",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>SIRI ET Schema Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>SIRI ET Schema</h1>
+
+<p class="section-label">Übersicht: So ist ET grundsätzlich aufgebaut</p>
+<div class="diagram">
+    <p class="diagram-head">ServiceDelivery</p>
+    <p class="diagram-sub">Der äußerste Rahmen jeder SIRI ET Antwort</p>
+
+    <div class="nest1">
+        <p class="nest1-head">EstimatedTimetableDelivery</p>
+        <p class="nest1-sub">die Antwort für den ET Dienst konkret</p>
+
+        <div class="nest2">
+            <p class="nest2-head">EstimatedJourneyVersionFrame</p>
+            <p class="nest2-sub">enthält alle Fahrten dieser Lieferung</p>
+
+            <div class="nest3">
+                <p class="nest3-head">EstimatedVehicleJourney</p>
+                <p class="nest3-sub">eine einzelne Fahrt mit Echtzeitdaten</p>
+
+                <div class="callbox">
+                    <div class="call-node">
+                        <h4>RecordedCalls</h4>
+                        <p>bereits gefahrene, aufgezeichnete Halte</p>
+                    </div>
+                    <div class="call-node">
+                        <h4>EstimatedCalls</h4>
+                        <p>kommende, vorhergesagte Halte</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="legend">
+    <div class="legend-item"><span class="dot dot-pflicht"></span>Pflicht</div>
+    <div class="legend-item"><span class="dot dot-optional"></span>Optional</div>
+    <div class="legend-item"><span class="dot dot-bedingt"></span>Bedingt (Pflicht, wenn gewählt)</div>
+    <div class="legend-item"><span class="dot dot-choice"></span>Choice (Teil einer Auswahl)</div>
+</div>
+
+<div class="usage-hint">
+    <p class="usage-hint-title">Anleitung</p>
+    <p>Klicke auf ein Element mit einer Kinderanzahl, um tiefer reinzugehen.</p>
+    <p>Klicke auf ein Element ohne Kinder, um seine Beschreibung zu sehen.</p>
+    <p>Um zurückzugehen, klicke auf die dunkle Box oben oder auf einen Namen in der Zeile ganz oben.</p>
+</div>
+
+<div class="search-box">
+    <input type="text" id="search-input" placeholder="Element suchen..." autocomplete="off">
+    <div id="search-results"></div>
+</div>
+
+<div id="breadcrumb"></div>
+    <div id="description"></div>
+    <div id="content"></div>
+
+    <p class="source-note">Quelle: SIRI v2.2 (CEN), XSD-Schemas aus <a href="https://github.com/SIRI-CEN/SIRI" target="_blank" rel="noopener">github.com/SIRI-CEN/SIRI</a></p>
+
+    <script src="script.js"></script>
+</body>
+</html>
