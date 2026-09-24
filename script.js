@@ -99,6 +99,14 @@ function renderContent() {
     } else {
         content.appendChild(innerBox);
     }
+
+    // Wenn ein Blatt-Element markiert ist (z.B. durch die Suche), dorthin scrollen.
+    if (selectedLeaf) {
+        const selectedEl = content.querySelector(".child-box.selected");
+        if (selectedEl) {
+            selectedEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }
 }
 
 function buildBox(node) {
@@ -117,7 +125,8 @@ function buildBox(node) {
         const hasChildren = child.children.length > 0;
 
         const item = document.createElement("div");
-        item.className = (hasChildren ? "child-box" : "child-box leaf") + " card-" + child.cardinality;
+        const isSelected = selectedLeaf === child;
+        item.className = (hasChildren ? "child-box" : "child-box leaf") + " card-" + child.cardinality + (isSelected ? " selected" : "");
 
         const name = document.createElement("span");
         name.className = "item-name";
