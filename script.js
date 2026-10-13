@@ -5,6 +5,8 @@ let selectedLeaf = null;
 // Jeder Eintrag speichert das Element selbst und den Pfad (die Vorfahren) dorthin.
 let searchIndex = [];
 
+document.getElementById("content").innerHTML = "<p class=\"loading-hint\">Lädt...</p>";
+
 fetch("data.json")
     .then(response => response.json())
     .then(data => {
@@ -36,15 +38,19 @@ function renderBreadcrumb() {
     breadcrumb.innerHTML = "";
 
     path.forEach((node, index) => {
+        const isCurrent = index === path.length - 1;
+
         const crumb = document.createElement("span");
         crumb.textContent = node.name;
-        crumb.className = "crumb";
+        crumb.className = isCurrent ? "crumb crumb-current" : "crumb";
 
-        crumb.addEventListener("click", () => {
-            path = path.slice(0, index + 1);
-            selectedLeaf = null;
-            render();
-        });
+        if (!isCurrent) {
+            crumb.addEventListener("click", () => {
+                path = path.slice(0, index + 1);
+                selectedLeaf = null;
+                render();
+            });
+        }
 
         breadcrumb.appendChild(crumb);
 
@@ -164,6 +170,29 @@ function buildBox(node) {
 const searchInput = document.getElementById("search-input");
 const searchResults = document.getElementById("search-results");
 
+// Baut den Namen mit <mark> um den Suchtreffer herum, wie bei einer Strg+F Suche.
+// escaped zuerst den Namen, damit kein HTML aus den Daten ausgefuehrt wird.
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+function highlightMatch(name, query) {
+    const safeName = escapeHtml(name);
+    const index = name.toLowerCase().indexOf(query.toLowerCase());
+
+    if (index === -1) {
+        return safeName;
+    }
+
+    const before = escapeHtml(name.slice(0, index));
+    const match = escapeHtml(name.slice(index, index + query.length));
+    const after = escapeHtml(name.slice(index + query.length));
+
+    return before + "<mark>" + match + "</mark>" + after;
+}
+
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
     searchResults.innerHTML = "";
@@ -177,13 +206,21 @@ searchInput.addEventListener("input", () => {
         entry.node.name.toLowerCase().includes(query)
     ).slice(0, 8); // maximal 8 Treffer anzeigen
 
+    if (matches.length === 0) {
+        const noResults = document.createElement("div");
+        noResults.className = "search-no-results";
+        noResults.textContent = "Keine Treffer gefunden.";
+        searchResults.appendChild(noResults);
+        return;
+    }
+
     matches.forEach(entry => {
         const result = document.createElement("div");
         result.className = "search-result";
 
         const name = document.createElement("div");
         name.className = "search-result-name";
-        name.textContent = entry.node.name;
+        name.innerHTML = highlightMatch(entry.node.name, query);
         result.appendChild(name);
 
         const pathText = document.createElement("div");
